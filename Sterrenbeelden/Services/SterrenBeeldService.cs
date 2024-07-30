@@ -46,7 +46,16 @@ public class SterrenBeeldService
     public SterrenBeeld? GetSterrenBeeldByDate(int dag, int maand)
     {
         DateOnly selectedDate = new DateOnly(DateTime.Now.Year, maand, dag);
-        DateOnly selectedDateNextYear = new DateOnly(DateTime.Now.Year + 1, maand, dag);
+        DateOnly selectedDateNextYear;
+
+        if (!DateTime.IsLeapYear(selectedDate.Year + 1) && dag == 29 && maand == 2)
+        {
+            selectedDateNextYear = new DateOnly(DateTime.Now.Year + 1, maand, dag - 1);
+        }
+        else
+        {
+            selectedDateNextYear = new DateOnly(DateTime.Now.Year + 1, maand, dag);
+        }
 
         if (selectedDate >= SterrenBeelden[0].BeginDatum && selectedDate <= SterrenBeelden[0].Einddatum || selectedDateNextYear >= SterrenBeelden[0].BeginDatum && selectedDateNextYear <= SterrenBeelden[0].Einddatum)
         {

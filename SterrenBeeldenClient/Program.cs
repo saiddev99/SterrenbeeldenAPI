@@ -11,8 +11,8 @@ var response = await client.GetAsync($"http://localhost:5000/sterrenbeelden/{dat
 switch (response.StatusCode)
 {
     case HttpStatusCode.OK:
-        var sterrenBeeld = await response.Content.ReadAsStringAsync();
-        Console.WriteLine(sterrenBeeld);
+
+        Console.WriteLine(await response.Content.ReadAsStringAsync());
         break;
     case HttpStatusCode.NotFound:
         Console.WriteLine("Sterrenbeeld niet gevonden.");
@@ -20,6 +20,6 @@ switch (response.StatusCode)
     default:
         Console.WriteLine("Technisch probleem, contacteer de helpdesk.");
         break;
-}Console.WriteLine("Druk op een toets op de programma te beëindigen.");
+}Console.WriteLine("Druk op een toets op de programma te beëindigen.");
 Console.WriteLine();
 Console.ReadKey();

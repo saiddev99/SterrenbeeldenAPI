@@ -12,18 +12,14 @@ public class SterrenBeeldenController(SterrenBeeldService service) : ControllerB
     public ActionResult SterrenBeelden()
     {
         StringBuilder? sb = new StringBuilder();
-
-        foreach (var sterrenbeeld in service.GetAllSterrenBeelden())
-        {
-            sb.Append(sterrenbeeld?.ToString());
-        }
+        service.GetAllSterrenBeelden().ForEach(sterrenbeeld => sb.Append(sterrenbeeld?.ToString()));
         return base.Ok(sb.ToString());
     }
 
     [HttpGet("{dag}-{maand}")]
     public ActionResult GetSterrenBeelden(int dag, int maand)
     {
-        if(maand <= 12 && dag < DateTime.DaysInMonth(DateTime.Now.Year, maand))
+        if(maand <= 12 && dag <= DateTime.DaysInMonth(DateTime.Now.Year, maand))
         {
             SterrenBeeld sterrenBeeld = service.GetSterrenBeeldByDate(dag, maand)!;
             return base.Ok(sterrenBeeld.ToString());
